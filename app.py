@@ -75,14 +75,22 @@ def save_settings(s: dict):
         pass
 
 
+def resource_path(rel: str) -> str:
+    """Path to a bundled file, both from source and inside the PyInstaller .exe."""
+    import sys
+    base = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base, rel)
+
+
 def system_label(g) -> str:
     return g.platform if g.system == 'RETRO' else g.system
 
-
+"""Test commit"""
 class App(_TkBase):
     def __init__(self):
         super().__init__()
         self.title(APP_NAME)
+        self._set_icon()
         self.geometry(f'1180x{min(860, self.winfo_screenheight() - 160)}+40+20')
         self.minsize(900, 600)
         self.configure(bg=C['bg'])
@@ -103,6 +111,19 @@ class App(_TkBase):
         self.after(100, self._poll)
         self.after(800, self._maybe_update_db)
         self.protocol('WM_DELETE_WINDOW', self._on_close)
+
+    def _set_icon(self):
+        try:  # own taskbar button/icon instead of Python's when run from source
+            import ctypes
+            ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID('PS3DriveManager.App')
+        except Exception:  # noqa: BLE001
+            pass
+        ico = resource_path(os.path.join('assets', 'icon.ico'))
+        try:
+            if os.path.isfile(ico):
+                self.iconbitmap(default=ico)
+        except tk.TclError:
+            pass
 
     # ================================================================== game database
     def _maybe_update_db(self, force=False):

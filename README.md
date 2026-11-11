@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/icon.png" width="160" alt="PS3 Drive Manager logo"></p>
+
 # PS3 Drive Manager
 
 A Windows app for setting up a modded PS3 and managing your own game backups for **webMAN MOD**, in the spirit of TinyWiiBackupManager for the Wii. It prepares USB drives, builds a ready-to-use mod kit (firmware, HEN guide and homebrew packages), organises PS3, PS2, PS1 and retro games with cover art, and installs community XMB themes.
