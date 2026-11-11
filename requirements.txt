@@ -1,0 +1,4 @@
+# Optional but recommended: JPG/WebP cover and theme previews
+pillow
+# Optional: drag and drop from Explorer
+tkinterdnd2
